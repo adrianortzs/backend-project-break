@@ -4,8 +4,9 @@ const { showProducts, showProductById, showNewProduct, deleteProduct, updateProd
 const router = express.Router()
 
 router.get('/products', showProducts)
-router.get('/dashboard', showProducts)
 router.get('products/:productId', showProductById)
+
+router.get('/dashboard', showProducts)
 router.get('/dashboard/:productId', showProductById)
 router.get('/dashboard/new', showNewProduct)
 router.get('/dashboard/:productId/edit', showEditProduct)
