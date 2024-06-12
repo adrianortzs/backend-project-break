@@ -2,7 +2,7 @@ const Product = require('../models/Product')
 
 const showProducts = async (req, res) => {
     const products = await Product.find()
-    res.render('allProducts.pug', {products})
+    res.render('allProducts', {products})
 }
 
 const showProductById = async (req, res) => {
@@ -10,20 +10,21 @@ const showProductById = async (req, res) => {
     const product = await Product.findById(id)
     if (!product) {
         return res.status(404).send({ message: "Product not found" })}
-    res.render('productDetail.pug', {product})
+    res.render('productDetail', {product})
 }
 
 const showNewProduct = async (req, res) => {
-    res.render('newProduct.pug')
+    res.render('newProduct')
 }
 
 const showEditProduct = async (req, res) => {
-    res.render('editProduct.pug')
+    res.render('editProduct')
 }
 
 const createProduct = async (req, res) => {
     try {
-        const product = new Product(req.body)
+        const {name, description, image, category, size, price} = req.body
+        const product = new Product({name, description, image, category, size, price})
         await product.save()
         res.status(201).redirect('/dashboard')
     } catch (error) {

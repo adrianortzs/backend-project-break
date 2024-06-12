@@ -3,9 +3,11 @@ const { showProducts, showProductById, showNewProduct, deleteProduct, updateProd
 
 const router = express.Router()
 
+//public
 router.get('/products', showProducts)
-router.get('products/:productId', showProductById)
+router.get('/products/:productId', showProductById)
 
+//admin
 router.get('/dashboard', showProducts)
 router.get('/dashboard/:productId', showProductById)
 router.get('/dashboard/new', showNewProduct)
