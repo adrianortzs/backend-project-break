@@ -19,7 +19,7 @@ const showProductById = async (req, res) => {
 }
 
 const showFilteredProducts = async (req, res) => {
-
+    
 }
 
 //admin
