@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const { v4: uuidv4 } = require('uuid');
 
 const showProducts = async (req, res) => {
     const products = await Product.find()
@@ -18,13 +19,16 @@ const showNewProduct = async (req, res) => {
 }
 
 const showEditProduct = async (req, res) => {
-    res.render('editProduct')
+    const id = req.params.productId
+    const product = await Product.findById(id)
+    res.render('editProduct', {product})
 }
 
 const createProduct = async (req, res) => {
     try {
         const {name, description, image, category, size, price} = req.body
-        const product = new Product({name, description, image, category, size, price})
+        const id = uuidv4()
+        const product = new Product({name, description, image, category, size, price, id}) //AQUÍ
         await product.save()
         res.status(201).redirect('/dashboard')
     } catch (error) {
