@@ -1,8 +1,12 @@
 const Product = require('../models/Product')
 const { v4: uuidv4 } = require('uuid');
 
+//public
 const showProducts = async (req, res) => {
     const products = await Product.find()
+    if (!products) {
+        return res.status(404).send({message: "No products available"})
+    }
     res.render('allProducts', {products})
 }
 
@@ -14,21 +18,45 @@ const showProductById = async (req, res) => {
     res.render('productDetail', {product})
 }
 
-const showNewProduct = async (req, res) => {
-    res.render('newProduct')
+const showFilteredProducts = async (req, res) => {
+
 }
 
-const showEditProduct = async (req, res) => {
+//admin
+const showProductsAdmin = async (req, res) => {
+    const products = await Product.find()
+    if (!products) {
+        return res.status(404).send({message: "No products available"})
+    }
+    res.render('allProductsAdmin', {products})
+}
+
+const showProductByIdAdmin = async (req, res) => {
     const id = req.params.productId
     const product = await Product.findById(id)
-    res.render('editProduct', {product})
+    if (!product) {
+        return res.status(404).send({ message: "Product not found" })}
+    res.render('productDetailAdmin', {product})
+}
+
+const showNewProductForm = async (req, res) => {
+    res.render('newProductForm.pug')
+}
+
+const showEditProductForm = async (req, res) => {
+    const id = req.params.productId
+    const product = await Product.findById(id)
+    res.render('editProductForm', {product})
 }
 
 const createProduct = async (req, res) => {
     try {
         const {name, description, image, category, size, price} = req.body
+        if (!name || !description || !image || !category || !size || !price) {
+            return res.status(400).send({message: "Complete everything"})
+        }
         const id = uuidv4()
-        const product = new Product({name, description, image, category, size, price, id}) //AQUÍ
+        const product = new Product({name, description, image, category, size, price, id})
         await product.save()
         res.status(201).redirect('/dashboard')
     } catch (error) {
@@ -63,6 +91,6 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-module.exports = {showProducts, showProductById, showNewProduct, showEditProduct, createProduct, updateProduct, deleteProduct}
+module.exports = {showProducts, showProductById, showFilteredProducts, showProductsAdmin, showProductByIdAdmin, showNewProductForm, showEditProductForm, createProduct, updateProduct, deleteProduct}
 
   

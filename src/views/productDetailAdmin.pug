@@ -6,7 +6,7 @@ html(lang="en")
         title Tienda de ropa
         link(rel="stylesheet", href="/styles.css") 
     body
-        include ./navBar.pug
+        include ./navBarAdmin.pug
         main
             div(class="product-detail") 
                 img(src=`${product.image}` alt=`${product.name}`)
@@ -17,4 +17,7 @@ html(lang="en")
                     p #{product.description}
                 section(class="product-info")
                     p #{product.size}
+                section(class="product-info")
+                    button(type="submit" id="edit") Editar
+                    button(type="submit" id="delete") Eliminar
                 a(href="/products}") Volver atrás

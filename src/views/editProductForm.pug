@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Tienda de ropa
+        link(rel="stylesheet", href="/styles.css")
+    body 
+        include ./navBarAdmin.pug
+        main
+            form(action="/dashboard" method="POST")
+                input(type="hidden" name="method_" value="PUT")
+                label(for="name") Nombre:
+                input(type="text" id="name" name="name" value="product.name")
+                label(for="description") Descripción:
+                input(type="textarea" id="description" name="description" value="product.description")
+                label(for="image") Imagen:
+                input(type="text" id="image" name="image" value="product.image")
+                label(for="category") Categoría:
+                select(id="category" name="category")
+                    option(value="Camisetas" selected=(product.category === "Camisetas")) Camisetas
+                    option(value="Pantalones" selected=(product.category === "Pantalones")) Pantalones
+                    option(value="Zapatos" selected=(product.category === "Zapatos")) Zapatos
+                    option(value="Accesorios" selected=(product.category === "Accesorios")) Accesorios
+                label(for="size") Talla:
+                select(id="size" name="size")
+                    option(value="XS" selected=(product.size === "XS")) XS
+                    option(value="S" selected=(product.size === "S")) S
+                    option(value="M" selected=(product.size === "M")) M
+                    option(value="L" selected=(product.size === "L")) L
+                    option(value="XL" selected=(product.size === "XL")) XL
+                label(for="price") Precio:
+                input(type="number" id="price" name="price" value="product.price")
+                button(type="submit") Actualizar producto
