@@ -9,7 +9,7 @@ html(lang="en")
         include ./navBar.pug
         main
             div(class="product-detail") 
-                img(src=`${product.image}` alt=`${product.name}`)
+                img(src=`${product.image}` alt=`${product.name}` class="img-detail")
                 section(class="product-info")
                     h1 #{product.name}
                     p #{product.price}€

@@ -8,11 +8,12 @@ html(lang="en")
     body
         include ./navBar.pug
         main
-            h1 Tienda de ropa 
-            each product in products
-                div(class="products")
-                    img(src=`${product.image}` alt=`${product.name}`)
-                    section(class="important-info")
-                        h1 #{product.name}
-                        p #{product.price}€
-                    a(href=`/products/${product._id}`) Ver detalle
+            h1 Tienda de ropa
+            section(class="products") 
+                each product in products
+                    div(class="product")
+                        img(src=`${product.image}` alt=`${product.name}`)
+                        section(class="important-info")
+                            h3 #{product.name}
+                            p #{product.price}€
+                        a(href=`/products/${product._id}`) Ver detalle
